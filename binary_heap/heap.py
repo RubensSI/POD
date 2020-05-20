@@ -58,7 +58,16 @@ class BinHeap(object):
 
     def size(self):
         return self.currentSize
-  
+    
+    def buildHeap(self, alist):
+        i = len(alist) // 2
+        self.currentSize = len(alist)
+        self.heapList = [0] + alist[:] # alist recebe 0 na primeira posição, mais o restante da lista => alist
+        while i > 0:
+            self.percDown(i)
+            i = i - 1
+            print(self.heapList)
+
 
 if __name__ == "__main__":
 
@@ -66,7 +75,4 @@ if __name__ == "__main__":
     
     array = [34, 2, 5, 12, 5, 43, 1]
 
-    for n in array:
-        heap.insert(n)
-        print(heap.heapList)
-
+    heap.buildHeap(array)
