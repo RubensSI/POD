@@ -1,9 +1,6 @@
 class BinHeap(object):
     def __init__(self):
-        # lista que representa as posições da arvore
-        self.heapList = [0]  # inicia com a posição zero
-
-        # indica o tamanho atual da lista
+        self.heapList = [0]
         self.currentSize = 0
 
     def insert(self, k):
@@ -24,12 +21,15 @@ class BinHeap(object):
 
     def delMin(self):
         retval = None
+
         if len(self.heapList) > 1:
             retval = self.heapList[1]
+
             self.heapList[1] = self.heapList[self.currentSize]
             self.currentSize = self.currentSize - 1
             self.heapList.pop()
-            self.percDonw(1)
+            self.percDown(1)
+
         return retval
 
     def percDown(self, i):
@@ -43,36 +43,45 @@ class BinHeap(object):
 
             i = mc
 
-
-    def minChild(self, i):
+    def minChild(self,i):
         if i * 2 + 1 > self.currentSize:
             return i * 2
         else:
-            if self.heapList[2 * 1] < self.heapList[i * 2 + 1]:
-                return 2 * i
+            if self.heapList[i*2] < self.heapList[i*2+1]:
+                return i * 2
             else:
-                 return i * 2 + 1 
+                return i * 2 + 1
 
     def isEmpty(self):
         return self.currentSize == 0
 
     def size(self):
         return self.currentSize
-    
+
     def buildHeap(self, alist):
         i = len(alist) // 2
         self.currentSize = len(alist)
-        self.heapList = [0] + alist[:] # alist recebe 0 na primeira posição, mais o restante da lista => alist
+        self.heapList = [0] + alist[:]
         while i > 0:
             self.percDown(i)
             i = i - 1
             print(self.heapList)
 
-
+import random
 if __name__ == "__main__":
-
     heap = BinHeap()
-    
-    array = [34, 2, 5, 12, 5, 43, 1]
 
-    heap.buildHeap(array)
+    low = [500, 501, 502, 503]
+    mid = [300, 301, 302, 303]
+    high = [100, 101, 102, 103]
+
+    items = low + mid + high
+
+    random.shuffle(items)
+    print('Antes {0}'.format(items))
+
+    heap.buildHeap(items)
+
+    while not heap.isEmpty():
+        next = heap.delMin()
+        print(next)   
