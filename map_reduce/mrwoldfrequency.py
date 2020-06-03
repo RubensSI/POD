@@ -6,9 +6,9 @@ class MRWordFrequency(MRJob):
 
         for word in words:
             yield word.lower(), 1
-  
     def reducer(self, key, values):
         yield key, sum(values)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     MRWordFrequency.run()
