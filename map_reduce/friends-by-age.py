@@ -1,15 +1,15 @@
-from mrjob import MRJob
+from mrjob.job import MRJob
 
-class FriendByAge(mrjob):
+class FriendsByAge(MRJob):
+
     def mapper(self, _, line):
-        (user, name, age, number) = line.split(',')
-
-        yield age, int(number)
+        (_, _, age, amount) = line.split(',')
+        yield age, int(amount)
 
     def reducer(self, key, values):
-        itens = list(values)
-
-        yield key, sum(itens) / len(list)
+        listFriends = list(values)
+        
+        yield key, sum(listFriends) / len(listFriends)
 
 if __name__ == "__main__":
-    FriendByAge.run()
+    FriendsByAge.run()
